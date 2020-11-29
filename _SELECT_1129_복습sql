@@ -1,0 +1,81 @@
+DESC emp; --테이블의 구조 확인
+
+SELECT * FROM emp; --테이블의 전체 데이터 확인 
+
+SELECT eno, ename FROM emp; --원하는 정보만 뽑아내기
+
+SELECT eno 사번, ename 이름 FROM emp; --별명을 붙여서 검색
+
+SELECT eno 사번, ename 이름, sal 급여, comm 보너스, sal * 12 + NVL(comm, 0) 연봉 FROM
+-- NVL 함수 null값을 0으로 치환.
+
+SELECT ename ||' ' ||sal --연결연산자 이름과 급여 검색됨 
+FROM emp;
+
+SELECT DISTINCT job 업무 --직원의 업무에는 어떤것이 있는지 검색 (중복제거)
+FROM emp;
+
+SELECT eno 사번, ename 이름, sal 급여 --이름은 같은경우가 있을 수 있으니 사번도 같이 검색해줘야한다.
+FROM emp;
+ORDER BY sal ASC; --급여순으로 오름차순 Defalte값이라서 생략가능 
+
+SELECT eno 사번, ename 이름, sal*12+NVL(comm,0)연봉 
+FROM emp
+ORDER BY 연봉 DESC; --연봉은 높은순으로 검색해야하서 내림차순을 적용
+
+SELECT eno 사번, ename 이름, sal*12+NVL(comm,0)연봉
+FROM emp
+ORDER BY 3 DESC; --3번째 컬럼을 기준으로 정렬
+
+SELECT dno 부서번호, eno 사번, ename 이름, sal 급여
+FROM emp
+ORDER BY 부서번호, 급여 DESC; --부서별로 오름차순 정렬해준다음 급여별로 내림차순 정렬 
+
+SELECT eno 사번, ename 이름, sal 급여
+FROM emp
+WHERE sal >= 4000; --사원중에 급여가 4000이상인 사람의 명단 /if문의 역할을 함
+
+SELECT *
+FROM emp
+WHERE ename = '김연아'; --사원중에 이름이 김연아인 사람
+
+SELECT *
+FROM emp
+WHERE dno != '10'; --10번부서가 아닌사람
+--자료형이 VARCHAR인지 NUM인지 잘보고 작성해야 한다. 맞지않게쓰면 코드가 길어졌을 때
+--형변환 하느라 엄청난 시간 낭비를 일으킬 수 있다.
+
+SELECT *
+FROM emp
+WHERE dno ='10'
+AND sal >= 2000 
+AND job = '개발'; --부서번호가 10이며 급여가 2000이상이고 개발업무를 맡는 사원
+
+--not>and>or 의 우선순위를 가짐 
+SELECT *
+FROM emp
+WHERE dno = '10' OR sal > 1600 AND comm > 600; --AND가 먼저 연산되고 OR이됨 
+--WHERE (dno = '10' OR sal > 1600 )AND comm > 600;
+--우선순위를 바꾸고 싶다면 괄호를 사용하면 된다.
+
+SELECT *
+FROM emp
+WHERE ename LIKE '김%'; --김씨성을 가진 사원 
+--WHERE ename LIKE '%하늘'; --이름이 하늘인 사원 
+
+
+SELECT *
+FROM emp
+WHERE ename LIKE '__'; --언더바를 두개써줌으로써 이름과성이 한글자씩인 사원을 추출
+    
+SELECT *
+FROM emp
+WHERE sal BETWEEN 1000 AND 4000; --급여가 1000이상 4000이하인 사원   
+--항상 작은 조건이 먼저 앞에 나와야함 큰조건이 앞에나오면 큰조건 부터 검색되서 작은조건은 검색안됨
+
+
+
+
+
+
+
